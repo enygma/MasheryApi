@@ -1,6 +1,8 @@
 MasheryAPI
 ==================
 
+[![Build Status](https://secure.travis-ci.org/enygma/MasheryApi.png?branch=master)](http://travis-ci.org/enygma/MasheryApi)
+
 The MasheryApi library makes connecting to the Mashery management API simpler
 through a basic PHP interface.
 
