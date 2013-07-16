@@ -171,6 +171,7 @@ class Request
 		$client = $this->getClient();
 		$apiKey = $this->getApiKey();
 		$siteId = $this->getSiteId();
+		$apiSecret = $this->getApiSecret();
 		$url = $this->getUrl();
 
 		if ($client === null) {
@@ -181,6 +182,9 @@ class Request
 		}
 		if ($siteId === null) {
 			throw new \InvalidArgumentException('Site ID cannot be null');
+		}
+		if ($apiSecret === null) {
+			throw new \InvalidArgumentException('API secret cannot be null');	
 		}
 
 		$params = array(
