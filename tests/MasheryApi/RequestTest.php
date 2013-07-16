@@ -138,4 +138,60 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 		$hash = $this->request->generateSignature();
 		$this->assertEquals($hash, $validHash);
 	}
+
+	/**
+	 * Test that an exception is thrown when no API key is defined
+	 * 
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testSendInvalidApiKey()
+	{
+		$data = json_encode(array());
+
+		$client = new \stdClass();
+		$this->request->setClient($client);
+		$this->request->send($data);
+	}
+
+	/**
+	 * Test that an exception is thrown when no client is defined
+	 * 
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testSendInvalidClient()
+	{
+		$data = json_encode(array());
+		$this->request->send($data);
+	}
+
+	/**
+	 * Test that an exception is thrown when no Site ID is defined
+	 * 
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testSendInvalidSiteId()
+	{
+		$data = json_encode(array());
+		$client = new \stdClass();
+		$this->request->setClient($client)
+			->setApiKey('valid-api-key');
+
+		$this->request->send($data);
+	}
+
+	/**
+	 * Test that an exception is thrown when no API Secret is defined
+	 * 
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testSendInvalidApiSecret()
+	{
+		$data = json_encode(array());
+		$client = new \stdClass();
+		$this->request->setClient($client)
+			->setApiKey('valid-api-key')
+			->setSiteId(1234);
+
+		$this->request->send($data);
+	}
 }
