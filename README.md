@@ -28,5 +28,19 @@ $member = $service->getMember('mashery-username');
 
 echo 'Member: '; echo $member->username."\n";
 
+// To create a user
+$data = array(
+	'username' => 'newuser1',
+	'display_name' => 'New User 1',
+	'email' => 'user@newuser.com'
+);
+$service->addMember($data);
+
+// To enable a user
+$service->enableMember($member);
+
+// To disable a user
+$service->disableMember($member);
+
 ?>
 ```
