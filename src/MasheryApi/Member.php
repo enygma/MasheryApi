@@ -126,11 +126,8 @@ class Member extends \MasheryApi\Model
 	 */
 	public function add($data = null)
 	{
-		$username = $this->username;
-		$method = ($username == null) ? 'member.create' : 'member.update';
-
 		$data = json_encode(array(
-			'method' => $method,
+			'method' => 'member.create',
 			'params' => array($data),
 			'id' => 1
 		));
