@@ -31,7 +31,7 @@ class Service
 	}
 
 	/**
-	 * Magic method to catch our get* methods
+	 * Magic method to catch our action methods
 	 * 
 	 * @param string $func Function name
 	 * @param array $args Function arguments
@@ -39,11 +39,24 @@ class Service
 	 */
 	public function __call($func, $args)
 	{
-		if (strpos($func, 'get') !== false) {
-			$modelClass = '\\MasheryApi\\'.str_replace('get', '', $func);
+		// find the position of the first capital letter
+		preg_match('/([a-z]+)(.+)/', $func, $match);
+
+		if (!empty($match)) {
+			$type = $match[1];
+			$class = $match[2];
+
+			$modelClass = '\\MasheryApi\\'.$match[2];
 			if (class_exists($modelClass)) {
 				$model = new $modelClass($this->getRequest());
-				$result = $model->find($args);
+				$type = strtolower($type);
+
+				if (method_exists($model, $type) === true) {
+					$result = $model->$type($args);
+				} else {
+					$result = $model->find($args);
+				}
+
 				return ($result !== null) ? $model : null;
 			}
 		}
