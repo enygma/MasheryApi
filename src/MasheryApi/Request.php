@@ -163,16 +163,31 @@ class Request
 	 * Send the request to the Mashery API
 	 * 
 	 * @param string $data JSON to send in request
+	 * @throws \InvalidArgumentException If required information is null
 	 * @return object API response (JSON object)
 	 */
 	public function send($data = null)
 	{
 		$client = $this->getClient();
+		$apiKey = $this->getApiKey();
+		$siteId = $this->getSiteId();
+		$url = $this->getUrl();
+
+		if ($client === null) {
+			throw new \InvalidArgumentException('Client object cannot be null');
+		}
+		if ($apiKey === null) {
+			throw new \InvalidArgumentException('API key cannot be null');	
+		}
+		if ($siteId === null) {
+			throw new \InvalidArgumentException('Site ID cannot be null');
+		}
+
 		$params = array(
-			'apikey' => $this->getApiKey(),
+			'apikey' => $apiKey,
 			'sig' => $this->generateSignature()
 		);
-		$url = $this->getUrl().'/'.$this->getSiteId().'?'.http_build_query($params);
+		$url = $url.'/'.$siteId.'?'.http_build_query($params);
 
 		$request = $client->post($url);
 		$request->setBody($data, 'application/json');
