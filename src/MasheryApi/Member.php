@@ -12,12 +12,25 @@ class Member extends \MasheryApi\Model
 		'username' => array(
 			'type' => 'string',
 			'maxlength' => '255'
+		),
+		'email' => array(
+			'type' => 'string'
+		),
+		'display_name' => array(
+			'type' => 'string'
+		),
+		'blog' => array(
+			'type' => 'string'
+		),
+		'area_status' => array(
+			'type' => 'string'
 		)
 	);
 
 	/**
 	 * Find the member based on username
 	 * 
+	 * @throws \Exception If error on user find
 	 * @return \MasheryApi\Member Member object
 	 */
 	public function find()
