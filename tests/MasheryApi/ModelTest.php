@@ -3,6 +3,8 @@ require_once 'MockModel.php';
 
 class ModelTest extends \PHPUnit_Framework_TestCase
 {
+	private $model = null;
+	
 	public function setUp()
 	{
 		$this->model = new MockModel();
@@ -62,4 +64,50 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 		);
 	}
 
+	/**
+	 * Test the setting of the Request on init of the model
+	 * 
+	 * @covers \MasheryApi\Model::__construct
+	 * @covers \MasheryApi\Model::setRequest
+	 */
+	public function testSetRequestOnConstruct()
+	{
+		$request = new \MasheryApi\Request();
+		$model = new \MockModel($request);
+
+		$this->assertNotNull($model->getRequest());
+		$this->assertTrue($model->getRequest() instanceof \MasheryApi\Request);
+	}
+
+	/**
+	 * Test that the values method returns all when no data is given
+	 * 
+	 * @covers \MasheryApi\Model::values
+	 */
+	public function testGetAllValues()
+	{
+		$testString = 'this is a test';
+		$this->model->test1 = $testString;
+		$values = $this->model->values();
+
+		$this->assertTrue(
+			isset($values['test1']) && $values['test1'] === $testString
+		);
+	}
+
+	/**
+	 * Test the setting and getting of the Request object
+	 * 
+	 * @covers \MasheryApi\Model::getRequest
+	 * @covers \MasheryApi\Model::setRequest
+	 */
+	public function testGetRequest()
+	{
+		$request = new \MasheryApi\Request();
+		$this->model->setRequest($request);
+
+		$this->assertTrue(
+			$this->model->getRequest() instanceof \MasheryApi\Request
+		);
+	}
 }
