@@ -175,6 +175,32 @@ class Member extends \MasheryApi\Model
 	}
 
 	/**
+	 * Delete the given member
+	 * 
+	 * @param array $args Arguments (Member + data to update)
+	 * @return boolean|\Exception Success/fail of delete request
+	 */
+	public function delete($args)
+	{
+		if (!isset($args[0]) || !($args[0] instanceof \MasheryApi\Member)) {
+			throw new \InvalidArgumentException('Invalid member provided!');
+		}
+		$member = $args[0];
+		$data = json_encode(array(
+			'method' => 'member.delete',
+			'params' => array($member->username),
+			'id' => 1
+		));
+
+		try {
+			$result = $this->getRequest()->send($data);
+			return true;
+		} catch (\Exception $e) {
+			throw new \Exception('There was an error updating user: '.$e->getMessage());
+		}
+	}
+
+	/**
 	 * Enable a user
 	 * 
 	 * @param array $args Arguments (Member)
