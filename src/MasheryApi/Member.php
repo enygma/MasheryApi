@@ -24,7 +24,64 @@ class Member extends \MasheryApi\Model
 		),
 		'area_status' => array(
 			'type' => 'string'
-		)
+		),
+		'uri' => array(
+			'type' => 'string'
+		),
+		'im' => array(
+			'type' => 'string'
+		),
+		'imsvc' => array(
+			'type' => 'string'
+		),
+		'phone' => array(
+			'type' => 'string'
+		),
+		'company' => array(
+			'type' => 'string'
+		),
+		'address1' => array(
+			'type' => 'string'
+		),
+		'address2' => array(
+			'type' => 'string'
+		),
+		'locality' => array(
+			'type' => 'string'
+		),
+		'region' => array(
+			'type' => 'string'
+		),
+		'postal_code' => array(
+			'type' => 'string'
+		),
+		'country_code' => array(
+			'type' => 'string'
+		),
+		'first_name' => array(
+			'type' => 'string'
+		),
+		'last_name' => array(
+			'type' => 'string'
+		),
+		'registration_ipaddr' => array(
+			'type' => 'string'
+		),
+		'external_id' => array(
+			'type' => 'string'
+		),
+		'passwd_new' => array(
+			'type' => 'string'
+		),
+		'keys' => array(
+			'type' => 'array'
+		),
+		'applications' => array(
+			'type' => 'array'
+		),
+		'roles' => array(
+			'type' => 'array'
+		),
 	);
 
 	/**
