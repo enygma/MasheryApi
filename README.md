@@ -42,5 +42,7 @@ $service->enableMember($member);
 // To disable a user
 $service->disableMember($member);
 
+// To delete a member
+$service->deleteMember($member);
 ?>
 ```
