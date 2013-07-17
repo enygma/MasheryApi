@@ -84,9 +84,44 @@ class Member extends \MasheryApi\Model
 		),
 	);
 
+    /**
+     * Executed pre-method call on the model
+     *     Populates Member if one is given
+     *
+     * @param array $args Arguments list
+     */
+    public function _preMethod($args)
+    {
+        foreach ($args as $argument) {
+            // if we were given a member as a part of these arguments, populate it
+            if ($argument instanceof \MasheryApi\Member) {
+                $this->values($argument->values());
+            }
+        }
+    }
+
+    /**
+     * Send the request to the API
+     *
+     * @param array $args Arguments
+     * @param string $data Data to send
+     * @param string $errorMsg Error message
+     * @return boolean Success/fail of request
+     */
+    public function request($args, $data, $errorMsg = 'There was an error: [message]')
+    {
+        try {
+            $result = $this->getRequest()->send($data);
+            return true;
+        } catch (\Exception $e) {
+            $errorMsg = str_replace('[message]', $e->getMessage(), $errorMsg);
+            throw new \Exception($errorMsg);
+        }
+    }
+
 	/**
 	 * Find the member based on username
-	 * 
+	 *
 	 * @throws \Exception If error on user find
 	 * @return \MasheryApi\Member Member object
 	 */
