@@ -24,7 +24,7 @@ abstract class Model
 
 	/**
 	 * Init the object and set request if provided
-	 * 
+	 *
 	 * @param \MasheryApi\Request $request Request object
 	 */
 	public function __construct(\MasheryApi\Request $request = null)
@@ -36,7 +36,7 @@ abstract class Model
 
 	/**
 	 * Set a property value on the object
-	 * 
+	 *
 	 * @param string $name Property name
 	 * @param mixed $value Property value
 	 */
@@ -49,7 +49,7 @@ abstract class Model
 
 	/**
 	 * Get the value for a property (if it exists)
-	 * 
+	 *
 	 * @param string $name Property name to find
 	 * @return mixed|null Value of property if it exists, otherwise null
 	 */
@@ -61,7 +61,7 @@ abstract class Model
 
 	/**
 	 * Set or get the current model's values
-	 * 
+	 *
 	 * @param array $data Data to populate to model properties
 	 * @return array Model property values
 	 */
@@ -80,7 +80,7 @@ abstract class Model
 
 	/**
 	 * Set the curent model's request object
-	 * 
+	 *
 	 * @param \MasheryApi\Request $request Request object
 	 */
 	public function setRequest(\MasheryApi\Request $request)
@@ -90,11 +90,22 @@ abstract class Model
 
 	/**
 	 * Get the current request object
-	 * 
+	 *
 	 * @return \MasheryApi\Request object
 	 */
 	public function getRequest()
 	{
 		return $this->request;
+	}
+
+	/**
+	 * Check for an empty object
+	 *
+	 * @return boolean Empty/not empty
+	 */
+	public function isEmpty()
+	{
+		$values = $this->values();
+		return empty($values);
 	}
 }
