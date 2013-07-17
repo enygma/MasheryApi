@@ -154,7 +154,7 @@ class Member extends \MasheryApi\Model
 
 	/**
 	 * Add a new Member
-	 * 
+	 *
 	 * @param [type] $data [description]
 	 * @return \MasheryApi\Member Member object
 	 * @throws \Exception If error on user create
@@ -180,7 +180,7 @@ class Member extends \MasheryApi\Model
 
 	/**
 	 * Update an existing user
-	 * 
+	 *
 	 * @param array $args Arguments (Member + data to update)
 	 * @return \MasheryApi\Member Member object
 	 */
@@ -211,7 +211,7 @@ class Member extends \MasheryApi\Model
 
 	/**
 	 * Delete the given member
-	 * 
+	 *
 	 * @param array $args Arguments (Member + data to update)
 	 * @return boolean|\Exception Success/fail of delete request
 	 */
@@ -237,7 +237,7 @@ class Member extends \MasheryApi\Model
 
 	/**
 	 * Enable a user
-	 * 
+	 *
 	 * @param array $args Arguments (Member)
 	 * @return \MasheryApi\Member Member object
 	 */
@@ -249,7 +249,7 @@ class Member extends \MasheryApi\Model
 
 	/**
 	 * Disable a user
-	 * 
+	 *
 	 * @param array $args Arguments (Member)
 	 * @return \MasheryApi\Member Member object
 	 */
