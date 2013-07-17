@@ -258,4 +258,31 @@ class Member extends \MasheryApi\Model
 		$args[1]['area_status'] = 'disabled';
 		return $this->update($args);
 	}
+
+    /**
+     * Add a new role to a user (by ID)
+     *
+     * @param array $args Arguments (Member, ID)
+     * @return boolean Success/fail of request
+     */
+    public function addrole($args)
+    {
+        if ($this->isEmpty() === true) {
+            throw new \InvalidArgumentException('Invalid member provided!');
+        }
+        $data = json_encode(array(
+            'method' => 'member.addRole',
+            'params' => array(
+                array('username' => $this->username),
+                array('id' => $args[1])
+            ),
+            'id' => 1
+        ));
+
+        return $this->request(
+            $args,
+            $data,
+            'There was an error adding role to user: [message]'
+        );
+    }
 }
