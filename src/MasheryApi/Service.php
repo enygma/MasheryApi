@@ -12,7 +12,7 @@ class Service
 
 	/**
 	 * Set the current MasheryApi\Request object
-	 * 
+	 *
 	 * @param \MasheryApi\Request $request Request object
 	 */
 	public function setRequest(\MasheryApi\Request $request)
@@ -22,7 +22,7 @@ class Service
 
 	/**
 	 * Get the current \MasheryApi\Request object
-	 * 
+	 *
 	 * @return \MasheryApi\Request object
 	 */
 	public function getRequest()
@@ -32,7 +32,7 @@ class Service
 
 	/**
 	 * Magic method to catch our action methods
-	 * 
+	 *
 	 * @param string $func Function name
 	 * @param array $args Function arguments
 	 * @return object|null Object if found, null if not
@@ -50,6 +50,10 @@ class Service
 			if (class_exists($modelClass)) {
 				$model = new $modelClass($this->getRequest());
 				$type = strtolower($type);
+
+				if (method_exists($model, '_preMethod')) {
+					$model->_preMethod($args);
+				}
 
 				if (method_exists($model, $type) === true) {
 					$result = $model->$type($args);
