@@ -155,7 +155,7 @@ class Member extends \MasheryApi\Model
 	/**
 	 * Add a new Member
 	 *
-	 * @param [type] $data [description]
+	 * @param array $data User data for creation
 	 * @return \MasheryApi\Member Member object
 	 * @throws \Exception If error on user create
 	 */
