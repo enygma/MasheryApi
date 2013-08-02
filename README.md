@@ -44,5 +44,10 @@ $service->disableMember($member);
 
 // To delete a member
 $service->deleteMember($member);
+
+// Using the MQL queries (object.fetch)
+$results = $service->getObject('SELECT name from ROLES');
+print_r($results->items);
+
 ?>
 ```
