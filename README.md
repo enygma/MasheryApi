@@ -49,5 +49,28 @@ $service->deleteMember($member);
 $results = $service->getObject('SELECT name from ROLES');
 print_r($results->items);
 
+// Fetching an OAuth access token
+$uri = new \MasheryApi\Oauth\Uri();
+$uri->redirect_uri = 'https:\/\/client.example.com\/cb';
+
+$client = new \MasheryApi\Oauth\Client();
+$client->client_id = 'client-id-here';
+$client->client_secret = 'client-secret-here';
+
+try {
+    $authCode = $service->oauth->authcode->create($serviceKey, $client, $uri);
+
+    $tokenData = new \MasheryApi\Oauth\Tokendata();
+    $tokenData->grant_type = 'authorization_code';
+    $tokenData->scope = 'myscope';
+    $tokenData->code = $authCode->code;
+
+    $token = $service->oauth->accesstoken->create($serviceKey, $client, $tokenData);
+} catch (\Exception $e) {
+    echo "\n\n##### ERROR #####################\n";
+    echo $e->getMessage()."\n\n";
+}
+
+echo 'token: '.$token->access_token."\n";
 ?>
 ```
