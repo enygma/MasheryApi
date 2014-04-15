@@ -55,8 +55,20 @@ abstract class Model
 	 */
 	public function __get($name)
 	{
-		return (array_key_exists($name, $this->properties) && array_key_exists($name, $this->values))
-			? $this->values[$name] : null;
+		if (array_key_exists($name, $this->properties) && array_key_exists($name, $this->values)) {
+			return $this->values[$name];
+		}
+
+		// otherwise, let's check to see if it's a class
+		$modelName = ucwords(strtolower($name));
+		$modelClass = '\\'.get_called_class().'\\'.$modelName;
+		if (class_exists($modelClass)) {
+			// make a new instance and return it
+			return new $modelClass($this->getRequest());
+		}
+
+		// if nothing else, return null
+		return null;
 	}
 
 	/**
