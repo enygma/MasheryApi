@@ -66,4 +66,21 @@ class Service
 		}
 		return null;
 	}
+
+	/**
+	 * Getter to handle object calls/creates from service
+	 *
+	 * @param string $param Object name
+	 * @return mixed Object instance if exists, null otherwise
+	 */
+	public function __get($param)
+	{
+		$modelName = ucwords(strtolower($param));
+		$modelClass = '\\MasheryApi\\'.$modelName;
+		if (class_exists($modelClass)) {
+			// make a new instance and return it
+			return new $modelClass($this->getRequest());
+		}
+		return null;
+	}
 }
