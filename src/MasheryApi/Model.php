@@ -120,4 +120,14 @@ abstract class Model
 		$values = $this->values();
 		return empty($values);
 	}
+
+	/**
+	 * "Convert" the object to an array of values
+	 *
+	 * @return array Current values
+	 */
+	public function toArray()
+	{
+		return $this->values;
+	}
 }
