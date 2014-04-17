@@ -18,6 +18,9 @@ class Accesstoken extends \MasheryApi\Model
         'expires_in' => array(
             'type' => 'string'
         ),
+        'expires' => array(
+            'type' => 'string'
+        ),
         'refresh_token' => array(
             'type' => 'string'
         ),
@@ -31,6 +34,12 @@ class Accesstoken extends \MasheryApi\Model
             'type' => 'string'
         ),
         'extended' => array(
+            'type' => 'string'
+        ),
+        'client_id' => array(
+            'type' => 'string'
+        ),
+        'grant_type' => array(
             'type' => 'string'
         )
     );
@@ -68,6 +77,40 @@ class Accesstoken extends \MasheryApi\Model
             'jsonrpc' => '2.0',
             'method' => 'oauth2.createAccessToken',
             'params' => $data,
+            'id' => 1
+        ));
+
+        try {
+            $result = $this->getRequest()->send($data);
+            if ($result->result !== null) {
+                $this->values((array)$result->result);
+            }
+            return $this;
+        } catch (\Exception $e) {
+            throw new \Exception('There was an error creating access token: '
+                .$e->getMessage()."\n"
+                .$e->getResponse()->getBody(true)
+            );
+        }
+    }
+
+    /**
+     * Find an access token detail by service key/token string
+     *
+     * @param string $serviceKey Service key string
+     * @param string $accessToken Access token string
+     * @throws  \Exception If failure on API request
+     * @return \MasheryApi\Oauth\Accesstoken instance
+     */
+    public function find($serviceKey, $accessToken)
+    {
+        $data = json_encode(array(
+            'jsonrpc' => '2.0',
+            'method' => 'oauth2.fetchAccessToken',
+            'params' => array(
+                'service_key' => $serviceKey,
+                'access_token' => $accessToken
+            ),
             'id' => 1
         ));
 
